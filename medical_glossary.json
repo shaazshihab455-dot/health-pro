@@ -1,0 +1,28 @@
+{
+  "glossary": {
+    "hypertension": "hypertension (high blood pressure)",
+    "hypotension": "hypotension (low blood pressure)",
+    "analgesic": "analgesic (painkiller)",
+    "antipyretic": "antipyretic (fever reducer)",
+    "dyspepsia": "dyspepsia (indigestion or upset stomach)",
+    "nausea": "nausea (feeling like you might vomit)",
+    "urticaria": "urticaria (itchy hives or rash)",
+    "angioedema": "angioedema (deep swelling under the skin, often around eyes or lips)",
+    "edema": "edema (swelling caused by fluid trapped in body tissues)",
+    "pruritus": "pruritus (severe itching)",
+    "jaundice": "jaundice (yellowing of the skin or eyes, often linked to the liver)",
+    "erythema": "erythema (redness of the skin)",
+    "arrhythmia": "arrhythmia (irregular heartbeat)",
+    "tachycardia": "tachycardia (unusually fast heartbeat)",
+    "bradycardia": "bradycardia (unusually slow heartbeat)",
+    "insomnia": "insomnia (trouble falling or staying asleep)",
+    "vertigo": "vertigo (dizziness where the room feels like it is spinning)",
+    "constipation": "constipation (difficulty having a bowel movement)",
+    "diarrhea": "diarrhea (loose, watery stools)",
+    "diarrhoea": "diarrhoea (loose, watery stools)",
+    "antibiotic": "antibiotic (medicine that kills bacteria)",
+    "anti-inflammatory": "anti-inflammatory (medicine that brings down swelling)",
+    "contraindication": "contraindication (a medical reason why you should not take a drug)",
+    "overdose": "overdose (taking more medicine than is safe)"
+  }
+}

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medicine Leaflet Explainer | Clear, Simple Medicine Guidance</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="font-normal theme-light">
+  <!-- Accessibility Bar -->
+  <header class="top-nav" role="banner">
+    <div class="container nav-content">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">💊</span>
+        <div>
+          <h1 class="brand-title">Medicine Leaflet Explainer</h1>
+          <p class="brand-subtitle">Simple, plain-English explanations of medicine labels & package inserts</p>
+        </div>
+      </div>
+
+      <!-- Accessibility & Speech Controls -->
+      <div class="a11y-toolbar" role="toolbar" aria-label="Accessibility controls">
+        <div class="toolbar-group">
+          <span class="toolbar-label">Text Size:</span>
+          <button id="btn-font-decrease" class="btn-tool" title="Decrease font size" aria-label="Decrease font size">A-</button>
+          <button id="btn-font-reset" class="btn-tool" title="Reset font size" aria-label="Default font size">A</button>
+          <button id="btn-font-increase" class="btn-tool" title="Increase font size" aria-label="Increase font size">A+</button>
+        </div>
+
+        <div class="toolbar-group">
+          <button id="btn-contrast-toggle" class="btn-tool" title="Toggle high contrast mode" aria-label="Toggle high contrast">
+            🌓 Contrast
+          </button>
+          <button id="btn-dyslexic-toggle" class="btn-tool" title="Toggle friendly font" aria-label="Toggle readable font">
+            📖 Easy Read
+          </button>
+        </div>
+
+        <div class="toolbar-group language-select-wrapper">
+          <label for="lang-select" class="sr-only">Language</label>
+          <select id="lang-select" class="select-tool" title="Select response language">
+            <option value="en">English (US/UK)</option>
+            <option value="es">Español (Spanish)</option>
+            <option value="fr">Français (French)</option>
+            <option value="de">Deutsch (German)</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="bn">বাংলা (Bengali)</option>
+            <option value="ar">العربية (Arabic)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Emergency Notice Banner (Shown globally) -->
+  <aside class="quick-safety-banner" role="region" aria-label="Immediate safety notice">
+    <div class="container banner-inner">
+      <span class="warning-badge">⚠️ Safety First</span>
+      <span>If you or someone else is having trouble breathing, chest pain, face swelling, or suspected overdose, call emergency services (e.g. 911 / 999 / 112) immediately.</span>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="container main-layout">
+    <!-- Input Section -->
+    <section class="card input-card" aria-labelledby="input-heading">
+      <div class="card-header">
+        <h2 id="input-heading">1. Share Your Medicine Leaflet or Label</h2>
+        <p class="section-desc">Type, paste, or select a sample leaflet below. We never ask for your personal information.</p>
+      </div>
+
+      <!-- Sample Buttons Bar -->
+      <div class="samples-bar">
+        <span class="sample-label">Try an example:</span>
+        <div class="sample-pills" id="sample-buttons">
+          <button class="pill-btn" data-sample="amoxicillin">Amoxicillin (Antibiotic)</button>
+          <button class="pill-btn" data-sample="paracetamol">Paracetamol (Pain relief)</button>
+          <button class="pill-btn" data-sample="ibuprofen">Ibuprofen (Anti-inflammatory)</button>
+          <button class="pill-btn" data-sample="lisinopril">Lisinopril (Blood pressure)</button>
+          <button class="pill-btn emergency-pill" data-sample="emergency_test">⚠️ Emergency Test</button>
+        </div>
+      </div>
+
+      <!-- File / Image Upload Box -->
+      <div class="upload-zone" id="drop-zone">
+        <input type="file" id="file-input" accept="image/*,.txt" class="sr-only" aria-label="Upload photo of medicine leaflet">
+        <label for="file-input" class="upload-label">
+          <span class="upload-icon">📷</span>
+          <span class="upload-text"><strong>Click to upload a photo</strong> or drag & drop a leaflet image / text file</span>
+          <span class="upload-hint">JPG, PNG, WebP or TXT (OCR scans automatically)</span>
+        </label>
+        <div id="image-preview-container" class="preview-box hidden">
+          <img id="image-preview" src="" alt="Medicine leaflet preview">
+          <button id="btn-remove-image" class="btn-link text-danger">Remove photo</button>
+        </div>
+      </div>
+
+      <!-- Textarea Input -->
+      <div class="textarea-wrapper">
+        <label for="leaflet-text" class="field-label">Leaflet Text:</label>
+        <textarea id="leaflet-text" rows="8" placeholder="Paste or type the text written on the medicine leaflet, box, or label here..." aria-required="true"></textarea>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-row">
+        <div class="left-actions">
+          <button id="btn-clear" class="btn btn-secondary">Clear</button>
+          <button id="btn-paste" class="btn btn-secondary">📋 Paste Clipboard</button>
+        </div>
+        <div class="right-actions">
+          <button id="btn-explain" class="btn btn-primary">
+            <span class="btn-icon">🔍</span> Explain in Simple Words
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Loading State -->
+    <div id="loading-state" class="loading-container hidden" aria-live="polite">
+      <div class="spinner"></div>
+      <p class="loading-text">Reading and simplifying the leaflet information...</p>
+    </div>
+
+    <!-- Output Section -->
+    <section id="output-section" class="output-section hidden" aria-live="polite" aria-labelledby="explanation-heading">
+      <div class="output-header-bar">
+        <h2 id="explanation-heading">2. Plain Language Explanation</h2>
+        
+        <div class="output-controls">
+          <!-- Text to Speech Audio Player -->
+          <button id="btn-speak" class="btn btn-audio" title="Read explanation aloud">
+            <span id="speak-icon">🔊</span> <span id="speak-text">Listen Aloud</span>
+          </button>
+          <button id="btn-copy" class="btn btn-secondary btn-sm" title="Copy to clipboard">
+            📋 Copy
+          </button>
+          <button id="btn-print" class="btn btn-secondary btn-sm" title="Print this explanation">
+            🖨️ Print / Save PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- Emergency Alert Container (Conditional) -->
+      <div id="emergency-alert" class="alert-box emergency-box hidden" role="alert">
+        <div class="alert-icon">🚨</div>
+        <div class="alert-content">
+          <h3>EMERGENCY WARNING</h3>
+          <p id="emergency-message">Signs of an acute medical emergency were detected. Stop reading and immediately call emergency services or go to the nearest hospital.</p>
+        </div>
+      </div>
+
+      <!-- Unclear Notice Container (Conditional) -->
+      <div id="unclear-alert" class="alert-box warning-box hidden" role="status">
+        <div class="alert-icon">ℹ️</div>
+        <div class="alert-content">
+          <h3>Text Unclear or Cut Off</h3>
+          <p id="unclear-message">The leaflet text provided seems incomplete or cut off. Please share a clearer, complete version.</p>
+        </div>
+      </div>
+
+      <!-- The 5 Structured Leaflet Explanation Cards -->
+      <div id="explanation-cards" class="cards-grid">
+        <!-- Card 1: What this medicine is for -->
+        <article class="card explanation-card card-purpose">
+          <div class="card-icon-badge">🎯</div>
+          <div class="card-body">
+            <h3>1. What this medicine is for</h3>
+            <p id="exp-purpose" class="explanation-text"></p>
+          </div>
+        </article>
+
+        <!-- Card 2: How it is usually taken -->
+        <article class="card explanation-card card-dose">
+          <div class="card-icon-badge">📋</div>
+          <div class="card-body">
+            <h3>2. How it is usually taken</h3>
+            <p id="exp-dose" class="explanation-text"></p>
+            <div class="sub-alert-dose">
+              <strong>Notice:</strong> As written in the leaflet. Never change, increase, or stop your dose without asking your doctor or pharmacist.
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3: Important warnings -->
+        <article class="card explanation-card card-warnings">
+          <div class="card-icon-badge">⚠️</div>
+          <div class="card-body">
+            <h3>3. Important warnings</h3>
+            <div id="exp-warnings" class="bullet-list"></div>
+          </div>
+        </article>
+
+        <!-- Card 4: Possible side effects -->
+        <article class="card explanation-card card-side-effects">
+          <div class="card-icon-badge">🩺</div>
+          <div class="card-body">
+            <h3>4. Possible side effects</h3>
+            
+            <div class="side-effects-split">
+              <!-- Common and mild -->
+              <div class="se-box se-mild">
+                <div class="se-header">
+                  <span class="badge-dot green-dot"></span>
+                  <h4>Common and usually mild</h4>
+                </div>
+                <div id="exp-se-mild" class="se-content"></div>
+              </div>
+
+              <!-- Serious -->
+              <div class="se-box se-serious">
+                <div class="se-header">
+                  <span class="badge-dot red-dot"></span>
+                  <h4>Serious: Get medical help straight away</h4>
+                </div>
+                <div id="exp-se-serious" class="se-content"></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5: Questions to ask your pharmacist or doctor -->
+        <article class="card explanation-card card-questions">
+          <div class="card-icon-badge">💬</div>
+          <div class="card-body">
+            <h3>5. Questions to ask your pharmacist or doctor</h3>
+            <p class="hint-text">Take this checklist with you to your next pharmacy or clinic visit:</p>
+            <ul id="exp-questions" class="questions-checklist"></ul>
+          </div>
+        </article>
+      </div>
+
+      <!-- Mandatory End Disclaimer -->
+      <footer class="mandatory-disclaimer" role="note">
+        <p id="final-disclaimer">
+          <strong>Please Note:</strong> This explains the leaflet only. It is not medical advice. If you're unsure, ask a pharmacist or doctor.
+        </p>
+      </footer>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>Medicine Leaflet Explainer &bull; Built to help everyone understand health information safely.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
